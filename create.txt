@@ -1,0 +1,173 @@
+# Projet RiskAnalysis - Documentation de reprise
+
+## Présentation générale du projet
+
+RiskAnalysis est une application d'analyse de risques pour les entreprises qui utilise plusieurs modèles d'IA pour fournir une analyse complète et consolidée. L'application permet d'analyser une entreprise à l'aide de quatre modèles d'IA différents (OpenAI, Anthropic Claude, DeepSeek et Gemini) et de consolider les résultats à l'aide d'un moteur de raisonnement.
+
+## Architecture technique
+
+L'application est composée de deux parties principales :
+
+1. **Backend** : Serveur Node.js avec Express qui gère les appels aux différentes API d'IA et fournit des endpoints pour le frontend.
+2. **Frontend** : Application React qui permet aux utilisateurs d'interagir avec le système et d'afficher les résultats des analyses.
+
+### Technologies utilisées
+
+- **Backend** :
+  - Node.js avec Express
+  - PostgreSQL pour le stockage des données
+  - APIs externes : OpenAI, Anthropic Claude, DeepSeek, Gemini
+  - Axios pour les requêtes HTTP
+
+- **Frontend** :
+  - React
+  - Material-UI pour l'interface utilisateur
+  - Axios pour les appels API
+  - Marked.js pour le rendu Markdown
+
+## Fonctionnalités principales
+
+1. **Analyse d'entreprise** : Permet d'analyser une entreprise à l'aide de différents modèles d'IA.
+2. **Moteur de raisonnement** : Consolide les résultats des différents modèles d'IA pour fournir une analyse complète.
+3. **Scraping de données** : Collecte des informations sur l'entreprise à partir de sources externes.
+4. **Intégration avec Pappers** : Récupère des données financières et légales sur les entreprises françaises.
+
+## État actuel du développement
+
+### Fonctionnalités implémentées
+
+- Interface utilisateur pour l'analyse d'entreprise
+- Intégration avec quatre modèles d'IA (OpenAI, Anthropic Claude, DeepSeek, Gemini)
+- Moteur de raisonnement pour consolider les résultats
+- Scraping de données pour collecter des informations sur l'entreprise
+- Intégration avec Pappers pour les données financières
+
+### Problèmes résolus récemment
+
+1. **Moteur de raisonnement** :
+   - Problème : Le moteur de raisonnement ne retournait pas de résultats ou les résultats n'étaient pas affichés correctement dans l'interface.
+   - Solution : Correction du format de la réponse envoyée par le serveur et amélioration de la gestion des différents formats de réponse côté frontend.
+
+2. **Affichage des résultats** :
+   - Problème : La carte "Analyse Consolidée" apparaissait toujours, même avant d'avoir cliqué sur le bouton "Moteur de raisonnement".
+   - Solution : Modification du code pour que la carte n'apparaisse qu'après avoir cliqué sur le bouton.
+
+### Points d'attention pour la reprise
+
+1. **Format des réponses** :
+   - Le format des réponses des différents modèles d'IA doit être standardisé pour faciliter leur traitement.
+   - Le moteur de raisonnement attend des réponses au format Markdown avec des sections spécifiques.
+
+2. **Gestion des erreurs** :
+   - La gestion des erreurs a été améliorée mais pourrait être encore renforcée, notamment pour les cas où les API externes ne répondent pas comme prévu.
+
+3. **Optimisation des performances** :
+   - Les appels aux API d'IA peuvent être lents, une mise en cache des résultats pourrait améliorer les performances.
+
+## Structure du code
+
+### Backend (server.js)
+
+Le backend est organisé autour des routes suivantes :
+
+- `/api/analyze` : Analyse une entreprise à l'aide d'un modèle d'IA spécifique (OpenAI, Claude, DeepSeek, Gemini)
+- `/api/reasoning` : Consolide les résultats des différents modèles d'IA
+- `/api/scrape` : Collecte des informations sur l'entreprise à partir de sources externes
+- `/api/pappers-data` : Récupère des données financières et légales sur les entreprises françaises
+- `/api/company-financial-data` : Récupère des données financières spécifiques sur une entreprise
+
+### Frontend (AIAnalysis.js)
+
+Le frontend est organisé autour d'un composant principal `AIAnalysis` qui gère :
+
+- L'interface utilisateur pour l'analyse d'entreprise
+- Les appels aux différentes API
+- L'affichage des résultats des analyses
+- Le moteur de raisonnement pour consolider les résultats
+
+## Modifications récentes importantes
+
+### Backend
+
+1. **Route `/api/reasoning`** :
+   - Simplification de la route pour qu'elle retourne une réponse valide et bien structurée
+   - Correction du format de la réponse pour qu'elle soit correctement traitée par le frontend
+
+```javascript
+// Préparer l'objet de réponse avec le format attendu par le frontend
+const responseObject = { result: consolidatedAnalysis };
+
+// Envoyer la réponse
+res.json(responseObject);
+```
+
+2. **Fonction `extractKeyPoints`** :
+   - Ajout d'une fonction pour extraire les points clés des analyses des différents modèles d'IA
+   - Utilisation de regex pour identifier les sections pertinentes dans les analyses
+
+### Frontend
+
+1. **Fonction `handleReasoningClick`** :
+   - Amélioration de la gestion des états pour indiquer correctement l'état de chargement
+   - Vérification du format de la réponse pour accepter différents formats
+
+```javascript
+// Vérifier le contenu de la réponse et extraire le résultat
+let reasoningResult;
+
+if (response && response.data) {
+  // Vérifier si la réponse est un objet avec une propriété result ou directement une chaîne de caractères
+  if (typeof response.data === 'string') {
+    // La réponse est directement une chaîne de caractères
+    reasoningResult = response.data;
+  } else if (response.data.result) {
+    // La réponse est un objet avec une propriété result
+    reasoningResult = response.data.result;
+  } else {
+    console.error('Format de réponse non reconnu');
+    setError('Format de réponse du moteur de raisonnement non reconnu');
+    return;
+  }
+}
+```
+
+2. **Affichage du résultat du moteur de raisonnement** :
+   - Modification pour que la carte "Analyse Consolidée" n'apparaisse qu'après avoir cliqué sur le bouton "Moteur de raisonnement"
+   - Amélioration de l'affichage du résultat pour gérer différents formats
+
+```javascript
+{results.reasoning && (
+  <Grid 
+    item 
+    xs={12} 
+    md={expandedCard === 'reasoning' ? 12 : 6} 
+    lg={expandedCard === 'reasoning' ? 12 : 3} 
+    sx={{ height: '100%' }}
+    style={{ display: expandedCard !== null && expandedCard !== 'reasoning' ? 'none' : 'block' }}
+  >
+    {/* Contenu de la carte */}
+  </Grid>
+)}
+```
+
+## Prochaines étapes suggérées
+
+1. **Amélioration du moteur de raisonnement** :
+   - Rendre l'analyse consolidée plus pertinente en extrayant des informations spécifiques des différentes analyses
+   - Ajouter une pondération des résultats en fonction de la qualité des analyses
+
+2. **Optimisation des performances** :
+   - Mettre en cache les résultats des analyses pour éviter de refaire les mêmes appels API
+   - Paralléliser les appels aux différentes API pour réduire le temps d'attente
+
+3. **Amélioration de l'interface utilisateur** :
+   - Ajouter des filtres pour afficher uniquement certaines sections des analyses
+   - Améliorer la visualisation des données financières
+
+4. **Extension des fonctionnalités** :
+   - Ajouter d'autres sources de données pour enrichir les analyses
+   - Implémenter un système de comparaison entre différentes entreprises
+
+## Conclusion
+
+Le projet RiskAnalysis est une application d'analyse de risques pour les entreprises qui utilise plusieurs modèles d'IA pour fournir une analyse complète et consolidée. Les problèmes récents liés au moteur de raisonnement ont été résolus, et l'application est maintenant fonctionnelle. Pour reprendre le développement, il est recommandé de se concentrer sur l'amélioration du moteur de raisonnement, l'optimisation des performances et l'extension des fonctionnalités.

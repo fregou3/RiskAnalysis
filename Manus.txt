@@ -1,0 +1,71 @@
+Tu es un spécialiste de l'entreprise
+Nous avons défini le nom d'une société.
+Peux tu enrichir le rapport en pièce jointe.
+Le rapport doit décrire la société choisie et décrire l'actualité de cette société.
+Il, faut aussi enrichir l'analyse de risque en gardant voire améliorer les différentes notes et garder une note globale
+Focus particulier sur les risques fianciers.
+Le contenu du rapport doit contenir :
+1. Informations sur la légende et le filtrage
+Statut des correspondances potentielles ou acceptées (pour les noms / entités)
+Types d’entités (individuel/famille, corporate)
+Filtres appliqués (ex : niveaux dépliés)
+2. Filiale(s)
+Nom
+Pays
+Type (ex : Corporate)
+Statut de propriété
+Pourcentage de détention directe et totale
+Source
+3. Modèles et évaluations risques (Risk assessments)
+Nom du modèle d’évaluation
+Date de début
+Statut du modèle (en cours/terminé)
+Nom évaluateur
+Version du modèle
+Niveau de risque associé
+4. Codes sectoriels et classifications
+ONace code(s)
+NACE Rev. 2 code(s)
+NAICS 2022 code(s)
+US SIC code(s)
+Branche d’activité principale, secondaire
+Type de produits/services
+5. Description commerciale
+Description de l’activité (en anglais et langue originale)
+Description des produits fabriqués ou services
+6. Données financières clés
+Période de consolidation
+Revenus d’exploitation (chiffre d'affaires)
+Résultat avant impôt
+Résultat net de la période
+Flux de trésorerie (avant D&A)
+Norme comptable appliquée
+7. Données de localisation et contact
+Adresse complète
+Téléphone, fax
+Domaine/URL du site internet
+Adresse e-mail
+Codes territoriaux/statistiques (ISO, NUTS)
+8. Informations légales
+Statut légal (actif/inactif)
+Type de société (par ex. GmbH)
+Année d’incorporation
+Identifiants légaux (numéro registre, LEI, VAT, Orbis ID, autres ID spécifiques)
+9. Indicateurs d’indépendance et structures d’actionnariat
+Indicateur d’indépendance (structure d’actionnariat)
+Détail des actionnaires courants (nom, pays, type, % de détention, date)
+Chemin vers l’ultimate owner
+Définition de l’ultimate owner
+10. Secteur d’activité et description produits/services
+Type d’entité
+Secteur BvD
+Section NACE Rev. 2 principale
+Description détaillée des produits et services
+11. Évolution des scores ESG
+Score ESG global par année
+Scores spécifiques : environnemental, social, gouvernance
+Performances individuelles des domaines
+Détail des sous-domaines ESG (relations de travail, gestion, restructurations, santé/sécurité...)
+12. Autres (identifiants, gestionnaires)
+Détail de l’attribution/gestion du LEI
+Évolutions/approbations liées à l’entité ou l’évaluation

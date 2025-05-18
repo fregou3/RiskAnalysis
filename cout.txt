@@ -1,0 +1,28 @@
+Estimation des coûts par analyse
+1. OpenAI (GPT-4o)
+Entrée : Environ 1 000 tokens pour le prompt
+Sortie : Environ 4 000 tokens pour la réponse
+Tarif : Environ $0.01 par 1 000 tokens en entrée et $0.03 par 1 000 tokens en sortie
+Coût par analyse : (1 × $0.01) + (4 × $0.03) = $0.13
+2. Anthropic (Claude)
+Entrée : Environ 1 000 tokens pour le prompt
+Sortie : Environ 4 000 tokens pour la réponse
+Tarif : Environ $0.015 par 1 000 tokens en entrée et $0.06 par 1 000 tokens en sortie
+Coût par analyse : (1 × $0.015) + (4 × $0.06) = $0.255
+3. DeepSeek
+Entrée : Environ 1 000 tokens pour le prompt
+Sortie : Environ 4 000 tokens pour la réponse
+Tarif : Environ $0.005 par 1 000 tokens en entrée et $0.02 par 1 000 tokens en sortie
+Coût par analyse : (1 × $0.005) + (4 × $0.02) = $0.085
+4. Gemini (gemini-1.5-flash-latest)
+Entrée : Environ 1 000 tokens pour le prompt
+Sortie : Environ 4 000 tokens pour la réponse
+Tarif : Environ $0.0035 par 1 000 tokens en entrée et $0.0035 par 1 000 tokens en sortie
+Coût par analyse : (1 × $0.0035) + (4 × $0.0035) = $0.0175
+5. Moteur de raisonnement (GPT-4o)
+Entrée : Environ 20 000 tokens (combinaison des 4 analyses précédentes + instructions)
+Sortie : Environ 6 000 tokens pour l'analyse consolidée
+Tarif : Environ $0.01 par 1 000 tokens en entrée et $0.03 par 1 000 tokens en sortie
+Coût par analyse : (20 × $0.01) + (6 × $0.03) = $0.38
+Coût total par analyse complète
+Total : $0.13 + $0.255 + $0.085 + $0.0175 + $0.38 = $0.8675

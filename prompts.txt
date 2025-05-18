@@ -1,0 +1,79 @@
+
+nous allons développer une ammplication de risque fournisseur. Nous utiliserons une base de données postgres installée dans docker sur le port 5440, le front sera sur le port 3040 et le backend sur le port 5040. l'application sera développée en reactjs sur javascript avec Material UI. L'application se connectra à des moteurs de type Chatgpt, Claude, Deepseek.
+
+Prompt moteurs :
+Tu es un spécialiste de l'entreprise
+Nous avons défini le nom d'une société.
+Je veux créer un rapport concernant la société contenant les données ci-dessous.
+Peux tu remplir les valeurs pour chaque données :
+1. Informations sur la légende et le filtrage
+Statut des correspondances potentielles ou acceptées (pour les noms / entités)
+Types d’entités (individuel/famille, corporate)
+Filtres appliqués (ex : niveaux dépliés)
+2. Filiale(s)
+Nom
+Pays
+Type (ex : Corporate)
+Statut de propriété
+Pourcentage de détention directe et totale
+Source
+3. Modèles et évaluations risques (Risk assessments)
+Nom du modèle d’évaluation
+Date de début
+Statut du modèle (en cours/terminé)
+Nom évaluateur
+Version du modèle
+Niveau de risque associé
+4. Codes sectoriels et classifications
+ONace code(s)
+NACE Rev. 2 code(s)
+NAICS 2022 code(s)
+US SIC code(s)
+Branche d’activité principale, secondaire
+Type de produits/services
+5. Description commerciale
+Description de l’activité (en anglais et langue originale)
+Description des produits fabriqués ou services
+6. Données financières clés
+Période de consolidation
+Revenus d’exploitation (chiffre d'affaires)
+Résultat avant impôt
+Résultat net de la période
+Flux de trésorerie (avant D&A)
+Norme comptable appliquée
+7. Données de localisation et contact
+Adresse complète
+Téléphone, fax
+Domaine/URL du site internet
+Adresse e-mail
+Codes territoriaux/statistiques (ISO, NUTS)
+8. Informations légales
+Statut légal (actif/inactif)
+Type de société (par ex. GmbH)
+Année d’incorporation
+Identifiants légaux (numéro registre, LEI, VAT, Orbis ID, autres ID spécifiques)
+9. Indicateurs d’indépendance et structures d’actionnariat
+Indicateur d’indépendance (structure d’actionnariat)
+Détail des actionnaires courants (nom, pays, type, % de détention, date)
+Chemin vers l’ultimate owner
+Définition de l’ultimate owner
+10. Secteur d’activité et description produits/services
+Type d’entité
+Secteur BvD
+Section NACE Rev. 2 principale
+Description détaillée des produits et services
+11. Évolution des scores ESG
+Score ESG global par année
+Scores spécifiques : environnemental, social, gouvernance
+Performances individuelles des domaines
+Détail des sous-domaines ESG (relations de travail, gestion, restructurations, santé/sécurité...)
+12. Autres (identifiants, gestionnaires)
+Détail de l’attribution/gestion du LEI
+Évolutions/approbations liées à l’entité ou l’évaluation
+
+
+Prompt consolidation :
+Tu es un spécialiste de l'analyse d'entreprise et d'analyse de risque.
+consolide dans une analyse unique le contenu des différentes analyses réalisé pour la société sélectionnée.
+En fin de document, ajoute une analyse de risque complète sur cette société.
+

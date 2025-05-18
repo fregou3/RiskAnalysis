@@ -1,0 +1,454 @@
+/**
+ * Service pour l'intégration de l'API Pappers.fr
+ * Permet de récupérer des informations légales et financières sur les entreprises françaises
+ * Documentation: https://api.pappers.fr/documentation
+ */
+
+const axios = require('axios');
+require('dotenv').config();
+
+// Clé API à configurer dans le fichier .env
+const PAPPERS_API_KEY = process.env.PAPPERS_API_KEY || '';
+const API_BASE_URL = 'https://api.pappers.fr/v2';
+
+/**
+ * Recherche une entreprise par son nom ou SIREN/SIRET
+ * @param {string} query - Nom de l'entreprise ou SIREN/SIRET
+ * @returns {Promise<object>} - Résultats de la recherche
+ */
+async function searchCompany(query) {
+  try {
+    if (!PAPPERS_API_KEY) {
+      console.warn('Pappers API key not configured. Using mock data.');
+      return getMockSearchResults(query);
+    }
+
+    // Vérifier si la requête est un SIREN/SIRET (uniquement des chiffres)
+    const isSirenSiret = /^\d+$/.test(query);
+
+    let url, params;
+    if (isSirenSiret) {
+      // Si c'est un SIREN/SIRET, utiliser l'endpoint entreprise
+      url = `${API_BASE_URL}/entreprise`;
+      params = {
+        api_token: PAPPERS_API_KEY,
+        siren: query
+      };
+    } else {
+      // Sinon, utiliser l'endpoint de recherche
+      url = `${API_BASE_URL}/recherche-entreprises`;
+      params = {
+        api_token: PAPPERS_API_KEY,
+        q: query,
+        par_page: 5
+      };
+    }
+
+    const response = await axios.get(url, { params });
+    return isSirenSiret ? { resultats: [response.data] } : response.data;
+  } catch (error) {
+    console.error(`Error searching company on Pappers: ${error.message}`);
+    if (error.response) {
+      console.error(`Status: ${error.response.status}, Data:`, error.response.data);
+    }
+    return getMockSearchResults(query);
+  }
+}
+
+/**
+ * Récupère les informations détaillées d'une entreprise par son SIREN
+ * @param {string} siren - Numéro SIREN de l'entreprise
+ * @returns {Promise<object>} - Informations détaillées de l'entreprise
+ */
+async function getCompanyDetails(siren) {
+  try {
+    if (!PAPPERS_API_KEY) {
+      console.warn('Pappers API key not configured. Using mock data.');
+      return getMockCompanyDetails(siren);
+    }
+
+    const url = `${API_BASE_URL}/entreprise`;
+    const params = {
+      api_token: PAPPERS_API_KEY,
+      siren: siren
+    };
+
+    const response = await axios.get(url, { params });
+    return response.data;
+  } catch (error) {
+    console.error(`Error getting company details from Pappers: ${error.message}`);
+    if (error.response) {
+      console.error(`Status: ${error.response.status}, Data:`, error.response.data);
+    }
+    return getMockCompanyDetails(siren);
+  }
+}
+
+/**
+ * Récupère les documents officiels d'une entreprise (statuts, comptes annuels, etc.)
+ * @param {string} siren - Numéro SIREN de l'entreprise
+ * @returns {Promise<object>} - Liste des documents disponibles
+ */
+async function getCompanyDocuments(siren) {
+  try {
+    if (!PAPPERS_API_KEY) {
+      console.warn('Pappers API key not configured. Using mock data.');
+      return getMockCompanyDocuments(siren);
+    }
+
+    const url = `${API_BASE_URL}/entreprise`;
+    const params = {
+      api_token: PAPPERS_API_KEY,
+      siren: siren,
+      extrait_kbis: true,
+      statuts: true
+    };
+
+    const response = await axios.get(url, { params });
+    
+    // Extraire les documents de la réponse
+    const documents = {
+      documents: []
+    };
+    
+    if (response.data.extrait_kbis_url) {
+      documents.documents.push({
+        type: 'extrait_kbis',
+        url: response.data.extrait_kbis_url,
+        date: new Date().toISOString().split('T')[0]
+      });
+    }
+    
+    if (response.data.statuts_url) {
+      documents.documents.push({
+        type: 'statuts',
+        url: response.data.statuts_url,
+        date: response.data.statuts_date_depot
+      });
+    }
+
+    return documents;
+  } catch (error) {
+    console.error(`Error getting company documents from Pappers: ${error.message}`);
+    if (error.response) {
+      console.error(`Status: ${error.response.status}, Data:`, error.response.data);
+    }
+    return getMockCompanyDocuments(siren);
+  }
+}
+
+/**
+ * Récupère les données financières d'une entreprise
+ * @param {string} siren - Numéro SIREN de l'entreprise
+ * @returns {Promise<object>} - Données financières de l'entreprise
+ */
+async function getFinancialData(siren) {
+  try {
+    if (!PAPPERS_API_KEY) {
+      console.warn('Pappers API key not configured. Using mock data.');
+      return getMockFinancialData(siren);
+    }
+
+    const url = `${API_BASE_URL}/entreprise`;
+    const params = {
+      api_token: PAPPERS_API_KEY,
+      siren: siren,
+      bilans: true
+    };
+
+    const response = await axios.get(url, { params });
+    
+    // Extraire les données financières
+    return {
+      comptes_sociaux: response.data.bilans || []
+    };
+  } catch (error) {
+    console.error(`Error getting financial data from Pappers: ${error.message}`);
+    if (error.response) {
+      console.error(`Status: ${error.response.status}, Data:`, error.response.data);
+    }
+    return getMockFinancialData(siren);
+  }
+}
+
+/**
+ * Récupère les dirigeants d'une entreprise
+ * @param {string} siren - Numéro SIREN de l'entreprise
+ * @returns {Promise<object>} - Liste des dirigeants de l'entreprise
+ */
+async function getCompanyManagement(siren) {
+  try {
+    if (!PAPPERS_API_KEY) {
+      console.warn('Pappers API key not configured. Using mock data.');
+      return getMockCompanyManagement(siren);
+    }
+
+    const url = `${API_BASE_URL}/entreprise`;
+    const params = {
+      api_token: PAPPERS_API_KEY,
+      siren: siren,
+      dirigeants: true
+    };
+
+    const response = await axios.get(url, { params });
+    
+    // Extraire les dirigeants
+    return {
+      dirigeants: response.data.dirigeants || []
+    };
+  } catch (error) {
+    console.error(`Error getting company management from Pappers: ${error.message}`);
+    if (error.response) {
+      console.error(`Status: ${error.response.status}, Data:`, error.response.data);
+    }
+    return getMockCompanyManagement(siren);
+  }
+}
+
+/**
+ * Récupère les bénéficiaires effectifs d'une entreprise
+ * @param {string} siren - Numéro SIREN de l'entreprise
+ * @returns {Promise<object>} - Liste des bénéficiaires effectifs
+ */
+async function getBeneficialOwners(siren) {
+  try {
+    if (!PAPPERS_API_KEY) {
+      console.warn('Pappers API key not configured. Using mock data.');
+      return getMockBeneficialOwners(siren);
+    }
+
+    const url = `${API_BASE_URL}/entreprise`;
+    const params = {
+      api_token: PAPPERS_API_KEY,
+      siren: siren,
+      beneficiaires_effectifs: true
+    };
+
+    const response = await axios.get(url, { params });
+    
+    // Extraire les bénéficiaires effectifs
+    return {
+      beneficiaires: response.data.beneficiaires_effectifs || []
+    };
+  } catch (error) {
+    console.error(`Error getting beneficial owners from Pappers: ${error.message}`);
+    if (error.response) {
+      console.error(`Status: ${error.response.status}, Data:`, error.response.data);
+    }
+    return getMockBeneficialOwners(siren);
+  }
+}
+
+// Fonctions de données simulées pour les tests sans API key
+function getMockSearchResults(query) {
+  return {
+    resultats: [
+      {
+        siren: '552081317',
+        nom_entreprise: 'TF1',
+        siege: {
+          code_postal: '92100',
+          ville: 'BOULOGNE-BILLANCOURT'
+        },
+        code_naf: '60.20A',
+        libelle_code_naf: 'Édition de chaînes généralistes',
+        date_creation: '1975-04-23',
+        forme_juridique: 'SA à conseil d\'administration'
+      },
+      {
+        siren: '330589955',
+        nom_entreprise: 'CLARINS',
+        siege: {
+          code_postal: '92200',
+          ville: 'NEUILLY-SUR-SEINE'
+        },
+        code_naf: '20.42Z',
+        libelle_code_naf: 'Fabrication de parfums et de produits pour la toilette',
+        date_creation: '1984-10-09',
+        forme_juridique: 'SAS'
+      }
+    ],
+    total: 2,
+    page: 1,
+    par_page: 5
+  };
+}
+
+function getMockCompanyDetails(siren) {
+  if (siren === '552081317') {
+    return {
+      siren: '552081317',
+      nom_entreprise: 'TF1',
+      siege: {
+        siret: '55208131700359',
+        adresse: '1 QUAI DU POINT DU JOUR',
+        code_postal: '92100',
+        ville: 'BOULOGNE-BILLANCOURT'
+      },
+      forme_juridique: 'SA à conseil d\'administration',
+      date_creation: '1975-04-23',
+      capital: 42097127,
+      tranche_effectif: '1000 à 1999 salariés',
+      code_naf: '60.20A',
+      libelle_code_naf: 'Édition de chaînes généralistes'
+    };
+  } else {
+    return {
+      siren: '330589955',
+      nom_entreprise: 'CLARINS',
+      siege: {
+        siret: '33058995500028',
+        adresse: '9 RUE DU COMMANDANT PILOT',
+        code_postal: '92200',
+        ville: 'NEUILLY-SUR-SEINE'
+      },
+      forme_juridique: 'SAS',
+      date_creation: '1984-10-09',
+      capital: 13108576,
+      tranche_effectif: '1000 à 1999 salariés',
+      code_naf: '20.42Z',
+      libelle_code_naf: 'Fabrication de parfums et de produits pour la toilette'
+    };
+  }
+}
+
+function getMockCompanyDocuments(siren) {
+  return {
+    documents: [
+      {
+        type: 'extrait_kbis',
+        url: 'https://example.com/kbis.pdf',
+        date: '2023-01-15'
+      },
+      {
+        type: 'statuts',
+        url: 'https://example.com/statuts.pdf',
+        date: '2022-05-20'
+      }
+    ]
+  };
+}
+
+function getMockFinancialData(siren) {
+  if (siren === '552081317') {
+    return {
+      comptes_sociaux: [
+        {
+          date_cloture: '2022-12-31',
+          duree_exercice: 12,
+          chiffre_affaires: 1500000000,
+          resultat_net: 191500000,
+          effectif: 1800
+        },
+        {
+          date_cloture: '2021-12-31',
+          duree_exercice: 12,
+          chiffre_affaires: 1420000000,
+          resultat_net: 176000000,
+          effectif: 1750
+        }
+      ]
+    };
+  } else {
+    return {
+      comptes_sociaux: [
+        {
+          date_cloture: '2022-12-31',
+          duree_exercice: 12,
+          chiffre_affaires: 980000000,
+          resultat_net: 125000000,
+          effectif: 1450
+        },
+        {
+          date_cloture: '2021-12-31',
+          duree_exercice: 12,
+          chiffre_affaires: 920000000,
+          resultat_net: 112000000,
+          effectif: 1400
+        }
+      ]
+    };
+  }
+}
+
+function getMockCompanyManagement(siren) {
+  if (siren === '552081317') {
+    return {
+      dirigeants: [
+        {
+          nom: 'BELMER',
+          prenom: 'Rodolphe',
+          fonction: 'Directeur Général',
+          date_nomination: '2022-02-27'
+        },
+        {
+          nom: 'CASAS',
+          prenom: 'Didier',
+          fonction: 'Secrétaire Général',
+          date_nomination: '2020-05-15'
+        }
+      ]
+    };
+  } else {
+    return {
+      dirigeants: [
+        {
+          nom: 'COURTIN-CLARINS',
+          prenom: 'Olivier',
+          fonction: 'Président',
+          date_nomination: '2018-01-10'
+        },
+        {
+          nom: 'COURTIN-CLARINS',
+          prenom: 'Christian',
+          fonction: 'Directeur Général',
+          date_nomination: '2018-01-10'
+        }
+      ]
+    };
+  }
+}
+
+function getMockBeneficialOwners(siren) {
+  if (siren === '552081317') {
+    return {
+      beneficiaires: [
+        {
+          nom: 'BOUYGUES',
+          prenom: 'Martin',
+          nationalite: 'Française',
+          pourcentage_parts: 43.7,
+          date_greffe: '2022-01-15'
+        }
+      ]
+    };
+  } else {
+    return {
+      beneficiaires: [
+        {
+          nom: 'COURTIN-CLARINS',
+          prenom: 'Olivier',
+          nationalite: 'Française',
+          pourcentage_parts: 40.0,
+          date_greffe: '2021-03-22'
+        },
+        {
+          nom: 'COURTIN-CLARINS',
+          prenom: 'Christian',
+          nationalite: 'Française',
+          pourcentage_parts: 40.0,
+          date_greffe: '2021-03-22'
+        }
+      ]
+    };
+  }
+}
+
+module.exports = {
+  searchCompany,
+  getCompanyDetails,
+  getCompanyDocuments,
+  getFinancialData,
+  getCompanyManagement,
+  getBeneficialOwners
+};

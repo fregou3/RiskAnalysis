@@ -1,0 +1,171 @@
+RAPPORT MINIMAL : CODIF TECHNOLOGIE NATURELLE
+=======================================================================
+
+INFORMATIONS GÉNÉRALES
+-----------------------------------------------------------------------
+Nom de l'entreprise: CODIF TECHNOLOGIE NATURELLE
+SIREN: 442 941 019
+Forme juridique: SAS, société par actions simplifiée
+Date de création: 01/07/2002
+Activité: Commerce de gros (commerce interentreprises) de parfumerie et de produits de beauté (46.45Z)
+Domaine d'activité: Commerce de gros, à l'exception des automobiles et des motocycles
+Capital: 1 000 000 €
+Effectif: Entre 6 et 9 salariés
+Statut: En activité
+
+SIÈGE SOCIAL
+-----------------------------------------------------------------------
+SIRET: 44294101900014
+Adresse: 70 RUE DU CDT L HERMINIER
+        35400 SAINT-MALO
+        France
+
+INFORMATIONS FINANCIÈRES
+-----------------------------------------------------------------------
+Année: 2023
+Chiffre d'affaires: 26 350 812 €
+Résultat: 5 406 715 €
+
+Ratios financiers:
+- Marge brute: 9 061 599 €
+- Excédent brut d'exploitation: 5 358 622 €
+- Résultat d'exploitation: 5 350 051 €
+- Taux de marge brute: 34,40 %
+- Taux de marge EBITDA: 20,30 %
+- Taux de marge opérationnelle: 20,30 %
+- BFR: 2 599 622 €
+- Capacité d'autofinancement: 5 486 192 €
+- Fonds de roulement: 9 587 312 €
+- Ratio d'endettement: -0,50
+- Autonomie financière: 83,30 %
+- Taux de levier: -1,30
+
+Année: 2022
+Chiffre d'affaires: 28 301 621 €
+Résultat: 6 962 070 €
+
+Ratios financiers:
+- Marge brute: 9 705 143 €
+- Excédent brut d'exploitation: 6 581 839 €
+- Résultat d'exploitation: 6 563 375 €
+- Taux de marge brute: 34,30 %
+- Taux de marge EBITDA: 23,30 %
+- Taux de marge opérationnelle: 23,20 %
+- BFR: 2 460 610 €
+- Capacité d'autofinancement: 6 991 787 €
+- Fonds de roulement: 10 912 777 €
+- Ratio d'endettement: -0,50
+- Autonomie financière: 84,10 %
+- Taux de levier: -1,30
+
+Année: 2021
+Chiffre d'affaires: 26 528 641 €
+Résultat: 6 374 256 €
+
+Ratios financiers:
+- Marge brute: 9 498 257 €
+- Excédent brut d'exploitation: 7 137 658 €
+- Résultat d'exploitation: 7 133 810 €
+- Taux de marge brute: 35,80 %
+- Taux de marge EBITDA: 26,90 %
+- Taux de marge opérationnelle: 26,90 %
+- BFR: 2 445 191 €
+- Capacité d'autofinancement: 6 356 878 €
+- Fonds de roulement: 9 989 978 €
+- Ratio d'endettement: -0,50
+- Autonomie financière: 83,60 %
+- Taux de levier: -1,10
+
+Année: 2020
+Chiffre d'affaires: 21 383 676 €
+Résultat: 4 625 851 €
+
+Ratios financiers:
+- Marge brute: 7 560 497 €
+- Excédent brut d'exploitation: 5 117 974 €
+- Résultat d'exploitation: 5 158 294 €
+- Taux de marge brute: 35,40 %
+- Taux de marge EBITDA: 23,90 %
+- Taux de marge opérationnelle: 24,10 %
+- BFR: 1 550 954 €
+- Capacité d'autofinancement: 4 627 236 €
+- Fonds de roulement: 9 665 050 €
+- Ratio d'endettement: -0,60
+- Autonomie financière: 81,50 %
+- Taux de levier: -1,60
+
+Année: 2019
+Chiffre d'affaires: 21 262 953 €
+Résultat: 4 240 538 €
+
+Ratios financiers:
+- Marge brute: 7 327 423 €
+- Excédent brut d'exploitation: 4 603 331 €
+- Résultat d'exploitation: 4 642 681 €
+- Taux de marge brute: 34,50 %
+- Taux de marge EBITDA: 21,60 %
+- Taux de marge opérationnelle: 21,80 %
+- BFR: -368 114 €
+- Capacité d'autofinancement: 4 306 954 €
+- Fonds de roulement: 8 082 220 €
+- Ratio d'endettement: -0,70
+- Autonomie financière: 74,40 %
+- Taux de levier: -1,90
+
+Année: 2018
+Chiffre d'affaires: 17 543 961 €
+Résultat: 3 212 753 €
+
+Ratios financiers:
+- Marge brute: 5 861 845 €
+- Excédent brut d'exploitation: 3 764 943 €
+- Résultat d'exploitation: 3 777 451 €
+- Taux de marge brute: 33,40 %
+- Taux de marge EBITDA: 21,50 %
+- Taux de marge opérationnelle: 21,50 %
+- BFR: 1 219 337 €
+- Capacité d'autofinancement: 3 301 011 €
+- Fonds de roulement: 6 561 967 €
+- Ratio d'endettement: -0,50
+- Autonomie financière: 82,00 %
+- Taux de levier: -1,50
+
+Année: 2017
+Chiffre d'affaires: 16 694 205 €
+Résultat: 3 368 501 €
+
+Ratios financiers:
+- Marge brute: 5 910 001 €
+- Excédent brut d'exploitation: 3 831 855 €
+- Résultat d'exploitation: 3 829 154 €
+- Taux de marge brute: 35,40 %
+- Taux de marge EBITDA: 23,00 %
+- Taux de marge opérationnelle: 22,90 %
+- BFR: 1 432 700 €
+- Capacité d'autofinancement: 3 470 048 €
+- Fonds de roulement: 6 036 611 €
+- Ratio d'endettement: -0,40
+- Autonomie financière: 82,00 %
+- Taux de levier: -1,20
+
+Année: 2016
+Chiffre d'affaires: 14 610 783 €
+Résultat: 3 230 498 €
+
+Ratios financiers:
+- Marge brute: 5 521 079 €
+- Excédent brut d'exploitation: 3 485 008 €
+- Résultat d'exploitation: 3 517 459 €
+- Taux de marge brute: 37,80 %
+- Taux de marge EBITDA: 23,90 %
+- Taux de marge opérationnelle: 24,10 %
+- BFR: 732 796 €
+- Capacité d'autofinancement: 3 373 855 €
+- Fonds de roulement: 5 159 891 €
+- Ratio d'endettement: -0,50
+- Autonomie financière: 84,00 %
+- Taux de levier: -1,30
+
+=======================================================================
+Rapport généré le 18/05/2025 09:01:43
+Ce rapport utilise uniquement les données disponibles gratuitement via l'API Pappers.

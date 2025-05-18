@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14
+    container_name: risk_analysis_db
+    ports:
+      - "5440:5432"
+    environment:
+      POSTGRES_USER: risk_user
+      POSTGRES_PASSWORD: risk_password
+      POSTGRES_DB: risk_analysis
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
